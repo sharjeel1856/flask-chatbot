@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template_string, redirect, url_for, session
 import pandas as pd
 from difflib import get_close_matches
+import os
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Needed for session management
@@ -306,5 +307,7 @@ def teacher_input():
             return redirect(url_for("home"))  # Redirect to home to show response
     return render_template_string(teacher_template, unread=unread_messages, chatbot_response=chatbot_response)
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
