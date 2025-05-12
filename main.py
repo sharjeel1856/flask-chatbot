@@ -311,3 +311,23 @@ def teacher_input():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+    
+# showing plane text or in the form of json to the mobile app user    
+@app.route("/api/chat", methods=["POST"])
+def api_chat():
+    question = request.form.get("student_query", "").strip().lower()
+
+    # Step 1: Check common responses
+    if question in common_responses:
+        return common_responses[question]
+
+    # Step 2: Try to find in dataset
+    answer = get_answer_from_dataset(question)
+    if answer:
+        return answer
+
+    # Step 3: If not found, route to teacher
+    domain, teacher = classify_query(question)
+    unread_messages[teacher] += 1
+    return "[FOR_TEACHER]"  # Your Flutter app can use this to redirect screen
+
