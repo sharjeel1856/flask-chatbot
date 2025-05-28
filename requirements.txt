@@ -1,6 +1,6 @@
 flask
+gunicorn
 pandas
 openpyxl
-gunicorn
 transformers
-torch
+torch==2.2.0+cpu
