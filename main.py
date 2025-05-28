@@ -8,7 +8,8 @@ warnings.filterwarnings("ignore")
 app = Flask(__name__)
 
 # Load LLM
-llm = pipeline("text-generation", model="tiiuae/falcon-rw-1b", max_new_tokens=150, device_map="auto")
+llm = pipeline("text-generation", model="distilgpt2", max_new_tokens=100)
+
 
 # Labels
 labels = {
